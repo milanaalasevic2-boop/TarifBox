@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>TarifBox — Подбери выгодный тариф в Беларуси</title>
+    <!-- SEO мета-теги -->
+    <meta name="description" content="TarifBox — умный помощник по подбору тарифов мобильной связи в Беларуси. Сравните тарифы А1, МТС, Life, подберите идеальный вариант и экономьте до 120 рублей в год.">
+    <meta name="keywords" content="подобрать тариф, сравнить тарифы, тарифы А1, тарифы МТС, тарифы Life, выгодный тариф, дешевый интернет Беларусь, eSIM Беларусь">
+    <meta name="author" content="TarifBox">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="TarifBox — подбери выгодный тариф в Беларуси">
+    <meta property="og:description" content="Сравни тарифы А1, МТС, Life и экономь на связи до 120 рублей в год">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tarifbox.by">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #F5F7FB;
+            color: #1A2A3F;
+            line-height: 1.5;
+        }
+
+        /* Цветовая гамма */
+        :root {
+            --dark-blue: #112944;
+            --medium-blue: #1d5580;
+            --accent-orange: #cca26b;
+            --light-gray: #F5F7FB;
+            --white: #FFFFFF;
+            --text-dark: #1A2A3F;
+            --text-light: #5A6E8A;
+            --success-green: #2E7D64;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Шапка */
+        .header {
+            background: var(--dark-blue);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-accent {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-orange);
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav a:hover {
+            color: var(--accent-orange);
+        }
+
+        .profile-icon {
+            background: var(--accent-orange);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.05);
+        }
+
+        /* Кнопки */
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: var(--accent-orange);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #b85f1f;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--medium-blue);
+            color: var(--medium-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--medium-blue);
+            color: white;
+        }
+
+        .btn-outline {
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            border: 2px solid var(--medium-blue);
+            color: var(--medium-blue);
+            padding: 10px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--medium-blue);
+            color: white;
+        }
+
+        /* Герой-секция */
+        .hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #1a4a6e 100%);
+            color: var(--white);
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-title span {
+            color: var(--accent-orange);
+        }
+
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+            max-width: 550px;
+        }
+
+        .hero-stats {
+            flex: 0.5;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--accent-orange);
+        }
+
+        /* Калькулятор */
+        .calculator {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--dark-blue);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+
+        .calc-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--light-gray);
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--white);
+        }
+
+        .calc-btn {
+            width: 100%;
+            background: var(--accent-orange);
+            color: white;
+            padding: 16px;
+            font-size: 18px;
+            margin-top: 16px;
+        }
+
+        .calc-result {
+            margin-top: 32px;
+            padding: 24px;
+            background: var(--white);
+            border-radius: 24px;
+            display: none;
+        }
+
+        /* Карусель тарифов */
+        .tariffs {
+            padding: 60px 0;
+            background: var(--light-gray);
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .tariff-cards {
+            display: flex;
+            gap: 32px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            padding: 10px 5px 20px 5px;
+        }
+
+        .tariff-cards::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .tariff-cards::-webkit-scrollbar-track {
+            background: #E2E8F0;
+            border-radius: 10px;
+        }
+
+        .tariff-cards::-webkit-scrollbar-thumb {
+            background: var(--medium-blue);
+            border-radius: 10px;
+        }
+
+        .tariff-card {
+            min-width: 320px;
+            flex: 0 0 auto;
+            background: var(--white);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: 1px solid #E2E8F0;
+        }
+
+        .tariff-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .tariff-operator {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: #f0f0f0;
+        }
+
+        .operator-a1 { color: #0855e2; background: #e3efff; }
+        .operator-mts { color: #E30613; background: #FFE5E6; }
+        .operator-life { color: #00A651; background: #E0F5E8; }
+
+        .tariff-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 12px 0 8px;
+        }
+
+        .tariff-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin: 16px 0;
+        }
+
+        .tariff-price span {
+            font-size: 16px;
+            font-weight: normal;
+            color: var(--text-light);
+        }
+
+        .tariff-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .tariff-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Выпадающее меню */
+        .dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-btn {
+            width: 100%;
+            background: var(--medium-blue);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dropdown-btn:hover {
+            background: var(--accent-orange);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #e0d7ca;
+            min-width: 100%;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            z-index: 10;
+            bottom: 100%;
+            margin-bottom: 5px;
+        }
+
+        .dropdown-content a {
+            color: var(--dark-blue);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 12px;
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--light-gray);
+            color: var(--accent-orange);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Модальное окно регистрации */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        /* Личный кабинет */
+        .profile-panel {
+            display: none;
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            width: 280px;
+            z-index: 200;
+        }
+
+        .profile-panel.show {
+            display: block;
+        }
+
+        /* Подписка */
+        .subscription {
+            padding: 60px 0;
+            background: var(--dark-blue);
+            color: white;
+        }
+
+        .sub-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 32px;
+            padding: 48px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .sub-price {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent-orange);
+            margin: 20px 0;
+        }
+
+        /* Футер */
+        .footer {
+            background: #0A1C2C;
+            color: #8A9BB0;
+            padding: 48px 0 24px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid #1E3A5F;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 32px; }
+            .hero-content { flex-direction: column; }
+            .header-content { flex-direction: column; }
+            .calc-card { padding: 24px; }
+            .tariff-card { min-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container header-content">
+        <div class="logo" onclick="location.reload()">
+            <span class="logo-text">Tarif</span>
+            <span class="logo-accent">Box</span>
+        </div>
+        <nav class="nav">
+            <a href="#calculator">Подобрать</a>
+            <a href="#tariffs">Тарифы</a>
+            <a href="#">Сравнение</a>
+            <a href="#subscription">Детектив</a>
+            <div class="profile-icon" id="profileIcon" onclick="toggleProfile()">👤</div>
+        </nav>
+    </div>
+</header>
+
+<!-- Личный кабинет -->
+<div id="profilePanel" class="profile-panel">
+    <div id="profileContent"></div>
+    <button class="btn btn-secondary" style="width:100%; margin-top:15px;" onclick="logout()">Выйти</button>
+</div>
+
+<!-- Модальное окно регистрации -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 style="margin-bottom:20px;">Регистрация</h2>
+        <input type="text" id="regName" placeholder="Имя" style="width:100%; padding:12px; margin-bottom:15px; border-radius:12px; border:1px solid #ccc;">
+        <input type="email" id="regEmail" placeholder="Email" style="width:100%; padding:12px; margin-bottom:15px; border-radius:12px; border:1px solid #ccc;">
+        <input type="password" id="regPassword" placeholder="Пароль" style="width:100%; padding:12px; margin-bottom:15px; border-radius:12px; border:1px solid #ccc;">
+        <button class="btn btn-primary" style="width:100%;" onclick="register()">Зарегистрироваться</button>
+    </div>
+</div>
+
+<!-- ГЛАВНЫЙ ЭКРАН -->
+<section class="hero">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h1 class="hero-title">Подбери идеальный тариф <span>за 1 минуту</span></h1>
+            <p class="hero-description">TarifBox — умный помощник, который сравнивает тарифы А1, МТС и Life. Экономь до 10 рублей в месяц без лишней головной боли.</p>
+            <div class="hero-buttons">
+                <a href="#calculator" class="btn btn-primary">Подобрать тариф</a>
+                <a href="#tariffs" class="btn btn-secondary">Смотреть тарифы</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-number">10 000+</div>
+            <div>пользователей уже экономят</div>
+            <div class="stat-number" style="margin-top: 20px;">до 120 BYN</div>
+            <div>в год на связи</div>
+        </div>
+    </div>
+</section>
+
+<!-- КАЛЬКУЛЯТОР -->
+<section id="calculator" class="calculator">
+    <div class="container">
+        <h2 class="section-title">Начните экономить прямо сейчас</h2>
+        <p class="section-subtitle">Ответьте на 3 вопроса — мы подберем лучший тариф</p>
+        <div class="calc-card">
+            <div class="form-group">
+                <label>🌐 Сколько интернета вы тратите в месяц?</label>
+                <select id="internet">
+                <option value="3">До 3 ГБ</option>
+                <option value="5">До 5 ГБ</option>
+                <option value="10">5–10 ГБ</option>
+                <option value="15">10–15 ГБ</option>
+                <option value="30" selected>15–30 ГБ</option>
+                <option value="50">30–50 ГБ</option>
+                <option value="100">Более 50 ГБ</option>
+            </select>
+             </select>
+            </div>
+            <div class="form-group">
+                <label>☎ Сколько минут разговора вам нужно?</label>
+                <select id="minutes">
+                <option value="50">До 50 минут</option>
+                <option value="100">50–100 минут</option>
+                <option value="200">100–200 минут</option>
+                <option value="300" selected>200–300 минут</option>
+                <option value="400">300–400 минут</option>
+                <option value="500">400–500 минут</option>
+                <option value="1000">Более 500 минут</option>
+             </select>
+            </div>
+            <div class="form-group">
+                <label>🌍 Нужен ли роуминг или eSIM для путешествий?</label>
+                <select id="roaming">
+                <option value="no">Нет, только Беларусь</option>
+                <option value="rare">Редко (1–2 раза в год)</option>
+                <option value="yes">Да, часто езжу</option>
+                <option value="business">Для бизнеса/командировок</option>
+             </select>
+            </div>
+            <button class="btn btn-primary calc-btn" onclick="showResult()">🔍 Подобрать тариф</button>
+            <div id="result" class="calc-result">
+                
+                <div id="resultText"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- КАРУСЕЛЬ ТАРИФОВ -->
+<section id="tariffs" class="tariffs">
+    <div class="container">
+        <h2 class="section-title">📱 Все тарифы Беларуси</h2>
+        <p class="section-subtitle">Листайте вправо → чтобы увидеть больше вариантов</p>
+        <div class="carousel-container">
+            <div class="tariff-cards" id="tariffCarousel">
+                <!-- Тарифы будут загружены из JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ПОДПИСКА -->
+<section id="subscription" class="subscription">
+    <div class="container">
+        <div class="sub-card">
+            <h2 style="font-size: 32px;">🕵️ Тарифный детектив</h2>
+            <p>Мы следим за тарифами 24/7. Если появится выгоднее — сразу предупредим!</p>
+            <div class="sub-price">7 BYN <span style="font-size: 18px;">/месяц</span></div>
+            <a href="#" class="btn btn-primary">Подписаться</a>
+            <p style="margin-top: 20px; opacity: 0.8;">Первые 30 дней — бесплатно</p>
+        </div>
+    </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div><div class="logo" style="margin-bottom:16px;"><span class="logo-text">Tarif</span><span class="logo-accent">Box</span></div><p>Твой персональный бокс<br>с выгодными тарифами</p></div>
+            <div><h4>Навигация</h4><p><a href="#" style="color:#8A9BB0; text-decoration:none;">Все тарифы</a></p><p><a href="#" style="color:#8A9BB0; text-decoration:none;">Сравнение</a></p><p><a href="#" style="color:#8A9BB0; text-decoration:none;">Для бизнеса</a></p></div>
+            <div><h4>Помощь</h4><p><a href="#" style="color:#8A9BB0; text-decoration:none;">О нас</a></p><p><a href="#" style="color:#8A9BB0; text-decoration:none;">Контакты</a></p></div>
+        </div>
+        <div class="footer-copyright">© 2026 TarifBox.by — Подбери свой идеальный тариф</div>
+    </div>
+</footer>
+
+<script>
+    // Данные тарифов с реальных сайтов
+    const tariffs = [
+        { name: "Суперсила+", operator: "А1", price: 29.90, gb: 25, minutes: 400, sms: 0, features: "Безлимит YouTube, 25 ГБ", link: "https://www.a1.by/ru/tariffs/supersila+" },
+        { name: "Суперсила", operator: "А1", price: 24.90, gb: 15, minutes: 300, sms: 0, features: "15 ГБ, 300 мин", link: "https://www.a1.by/ru/tariffs/supersila" },
+        { name: "Интернет PRO", operator: "А1", price: 19.90, gb: 10, minutes: 200, sms: 0, features: "10 ГБ, 200 мин", link: "https://www.a1.by/ru/tariffs/internet-pro" },
+        { name: "Безлимитище PRO", operator: "МТС", price: 34.90, gb: 30, minutes: 500, sms: 0, features: "30 ГБ, 500 мин", link: "https://www.mts.by/tariffs/bezlimitishche-pro/" },
+        { name: "Безлимитище", operator: "МТС", price: 29.90, gb: 25, minutes: 400, sms: 0, features: "25 ГБ, 400 мин", link: "https://www.mts.by/tariffs/bezlimitishche/" },
+        { name: "Smart", operator: "МТС", price: 19.90, gb: 10, minutes: 200, sms: 0, features: "10 ГБ, 200 мин", link: "https://www.mts.by/tariffs/smart/" },
+        { name: "Бесконечный Max", operator: "Life", price: 32.90, gb: 35, minutes: 600, sms: 0, features: "35 ГБ, 600 мин", link: "https://www.life.com.by/ru/tariffs/beskonechnyj-max/" },
+        { name: "Бесконечный", operator: "Life", price: 27.90, gb: 25, minutes: 450, sms: 0, features: "25 ГБ, 450 мин", link: "https://www.life.com.by/ru/tariffs/beskonechnyj/" },
+        { name: "Стартовый", operator: "Life", price: 15.90, gb: 7, minutes: 150, sms: 0, features: "7 ГБ, 150 мин", link: "https://www.life.com.by/ru/tariffs/startovyj/" }
+    ];
+
+    // Функция подбора тарифа на основе интернета и минут
+    function findBestTariff(internetGb, minutesCount) {
+        // Сортируем тарифы по близости к потребностям пользователя
+        let bestTariff = null;
+        let bestScore = Infinity;
+        
+        tariffs.forEach(tariff => {
+            // Считаем разницу между нужным интернетом и интернетом в тарифе
+            let internetDiff = 0;
+            if (internetGb > tariff.gb) {
+                // Если нужно больше, чем есть в тарифе — штрафуем
+                internetDiff = (internetGb - tariff.gb) * 2;
+            } else {
+                // Если интернета достаточно — поощряем
+                internetDiff = (tariff.gb - internetGb) * 0.5;
+            }
+            
+            // Считаем разницу для минут
+            let minutesDiff = 0;
+            if (minutesCount > tariff.minutes) {
+                minutesDiff = (minutesCount - tariff.minutes) * 2;
+            } else {
+                minutesDiff = (tariff.minutes - minutesCount) * 0.5;
+            }
+            
+            // Общий балл (чем меньше, тем лучше)
+            let score = internetDiff + minutesDiff;
+            
+            // Дополнительный бонус: если тариф дешевле — добавляем к баллу (меньше балл = лучше)
+            score = score - (50 / tariff.price);
+            
+            if (score < bestScore) {
+                bestScore = score;
+                bestTariff = tariff;
+            }
+        });
+        
+        return bestTariff;
+    }
+
+    // Функция отрисовки карусели
+    function renderTariffs() {
+        const container = document.getElementById('tariffCarousel');
+        if (!container) return;
+        container.innerHTML = '';
+        tariffs.forEach(tariff => {
+            let operatorClass = '';
+            if (tariff.operator === 'А1') operatorClass = 'operator-a1';
+            else if (tariff.operator === 'МТС') operatorClass = 'operator-mts';
+            else operatorClass = 'operator-life';
+
+            const card = document.createElement('div');
+            card.className = 'tariff-card';
+            card.innerHTML = `
+                <div class="tariff-operator ${operatorClass}">${tariff.operator}</div>
+                <div class="tariff-name">${tariff.name}</div>
+                <div class="tariff-price">${tariff.price} <span>BYN/мес</span></div>
+                <ul class="tariff-features">
+                    <li>🌐 ${tariff.gb} ГБ интернета</li>
+                    <li>☎ ${tariff.minutes} минут</li>
+                    <li>✉ ${tariff.features}</li>
+                </ul>
+                <div class="dropdown">
+                    <button class="dropdown-btn">Узнать больше ▼</button>
+                    <div class="dropdown-content">
+                        <a href="${tariff.link}" target="_blank">📱 Перейти на сайт ${tariff.operator}</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    // НОВАЯ ФУНКЦИЯ КАЛЬКУЛЯТОРА (с поддержкой всех вариантов)
+    function showResult() {
+        // Получаем значения из формы
+        const internetValue = document.getElementById('internet').value;
+        const minutesValue = document.getElementById('minutes').value;
+        const roamingValue = document.getElementById('roaming').value;
+        
+        // Преобразуем в числа
+        let internetGb = 0;
+        let minutesCount = 0;
+        
+        // Распознаем интернет (value теперь содержат числа)
+        if (internetValue == '3') internetGb = 3;
+        else if (internetValue == '5') internetGb = 5;
+        else if (internetValue == '10') internetGb = 10;
+        else if (internetValue == '15') internetGb = 15;
+        else if (internetValue == '25') internetGb = 25;
+        else if (internetValue == '30') internetGb = 30;
+        else if (internetValue == '35') internetGb = 35;
+        else if (internetValue == '50') internetGb = 50;
+        else if (internetValue == '100') internetGb = 100;
+        else internetGb = parseInt(internetValue) || 20;
+        
+        // Распознаем минуты
+        if (minutesValue == '50') minutesCount = 50;
+        else if (minutesValue == '100') minutesCount = 100;
+        else if (minutesValue == '200') minutesCount = 200;
+        else if (minutesValue == '300') minutesCount = 300;
+        else if (minutesValue == '400') minutesCount = 400;
+        else if (minutesValue == '500') minutesCount = 500;
+        else if (minutesValue == '600') minutesCount = 600;
+        else if (minutesValue == '1000') minutesCount = 1000;
+        else minutesCount = parseInt(minutesValue) || 300;
+        
+        // Подбираем лучший тариф
+        const bestTariff = findBestTariff(internetGb, minutesCount);
+        
+        // Формируем текст результата
+        let resultText = '';
+        
+        if (bestTariff) {
+            resultText = `
+                <div style="text-align: center;">
+                    <div style="font-size: 20px; font-weight: bold; margin-bottom: 15px;">
+                        🌐 ${bestTariff.operator} «${bestTariff.name}»
+                    </div>
+                    <div style="font-size: 32px; color: var(--accent-orange); font-weight: bold;">
+                        ${bestTariff.price} <span style="font-size: 18px;">BYN/мес</span>
+                    </div>
+                    <div style="margin: 15px 0; padding: 10px; background: #F5F7FB; border-radius: 16px;">
+                        <div>🌐 ${bestTariff.gb} ГБ интернета</div>
+                        <div>☎ ${bestTariff.minutes} минут</div>
+                        <div>✉ ${bestTariff.features}</div>
+                    </div>
+                    <div style="font-size: 14px; color: #2E7D64;">
+                        ⚡ Это идеальный тариф под ваши потребности!
+                    </div>
+                </div>
+            `;
+        } else {
+            resultText = '😕 Не удалось подобрать тариф. Попробуйте изменить параметры.';
+        }
+        
+        // Добавляем рекомендацию по роумингу
+        if (roamingValue === 'rare') {
+            resultText += '<br><br><div style="background: #FFF3E0; padding: 12px; border-radius: 16px; margin-top: 15px;">✈️ Для редких поездок рекомендуем нашу eSIM — от 15 BYN за поездку!</div>';
+        } else if (roamingValue === 'yes' || roamingValue === 'business') {
+            resultText += '<br><br><div style="background: #FFF3E0; padding: 12px; border-radius: 16px; margin-top: 15px;">🌍 Для активных путешествий у нас есть специальные eSIM-пакеты. Подключайтесь прямо сейчас!</div>';
+        }
+        
+        document.getElementById('resultText').innerHTML = resultText;
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Регистрация и профиль
+    let currentUser = null;
+
+    function toggleProfile() {
+        const panel = document.getElementById('profilePanel');
+        if (!currentUser) {
+            document.getElementById('registerModal').style.display = 'flex';
+            panel.classList.remove('show');
+        } else {
+            panel.classList.toggle('show');
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('registerModal').style.display = 'none';
+    }
+
+    function register() {
+        const name = document.getElementById('regName').value;
+        const email = document.getElementById('regEmail').value;
+        const password = document.getElementById('regPassword').value;
+        if (name && email && password) {
+            currentUser = { name, email };
+            document.getElementById('profileContent').innerHTML = `<strong>${name}</strong><br>${email}<br><span style="font-size:12px;color:green;">✔ Активный профиль</span>`;
+            closeModal();
+            alert('Регистрация успешна!');
+        } else {
+            alert('Заполните все поля');
+        }
+    }
+
+    function logout() {
+        currentUser = null;
+        document.getElementById('profilePanel').classList.remove('show');
+        alert('Вы вышли из профиля');
+    }
+
+    // Закрыть модалку при клике вне
+    window.onclick = function(event) {
+        const modal = document.getElementById('registerModal');
+        if (event.target == modal) closeModal();
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        renderTariffs();
+    });
+</script>
+
+</body>
+</html>
